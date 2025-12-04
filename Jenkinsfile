@@ -29,7 +29,12 @@ pipeline {
             }
             steps{
                 sh'''
-                    grep index.html build/index.html
+                        if test -f build/index.html; then
+                            echo "index.html exists";
+                        else
+                            echo "index.html NOT found";
+                            exit 1;
+                        fi
                     npm test
                 '''
             }
